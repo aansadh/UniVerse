@@ -1,0 +1,36 @@
+@jwtCookie1 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk
+@jwtCookie2 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDM1MDIzMjksImV4cCI6MTc0MzU4ODcyOX0.LKyhkicJNl9e3DvW1lsC9lXqwpm-qxwJM9J9FpHToCc
+
+######### USERS
+GET http://localhost:5000/users/
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+### GET profile
+GET http://localhost:5000/users/profile
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+### GET profile by ID
+GET http://localhost:5000/users/profile/:id
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+### PATCH user details
+PATCH http://localhost:5000/users/update
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+{
+    "lastName": "Medusa"
+}
+
+### DELETE user profile                 
+DELETE http://localhost:5000/users/delete-profile  
+Content-Type: application/json
+Cookie: {{ jwtCookie1 }}
+
+### GET users with query.
+GET http://localhost:5000/users/search?firstName=karthik 
+Content-Type: application/json    
+Cookie: {{ jwtCookie1 }}

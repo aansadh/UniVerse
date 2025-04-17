@@ -1,0 +1,30 @@
+@jwtCookie1 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFydW5hQGdtYWlsLmNvbSIsIl9pZCI6IjY3ZWJiOTJjZDY0MTFhYjBhODY4NTVhZCIsImlhdCI6MTc0MzUwMTYyMywiZXhwIjoxNzQzNTg4MDIzfQ.9nUNOfF7CqxmzSpRHjBaXRbz0wNsGIxVwxBPPhBkEbc
+@jwtCookie2 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDM1MDIzMjksImV4cCI6MTc0MzU4ODcyOX0.LKyhkicJNl9e3DvW1lsC9lXqwpm-qxwJM9J9FpHToCc
+@id2 = "67ebb92cd6411ab0a86855ad"
+@id1 = "67ebbbd7af6e27c442840a81"
+POST http://localhost:5000/friends/request
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+{
+    "recipientId": "67ebbbd7af6e27c442840a81"
+}
+
+### 
+PATCH  http://localhost:5000/friends/accept
+Content-Type: application/json
+Cookie: {{jwtCookie2}}
+
+{
+    "requesterId": "67ebb92cd6411ab0a86855ad"
+}
+
+### Get all friends
+GET http://localhost:5000/friends
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+### Get friend of a user with _id
+GET http://localhost:5000/friends/67ebb92cd6411ab0a86855ad
+Content-Type: application/json
+Cookie: {{jwtCookie1}}

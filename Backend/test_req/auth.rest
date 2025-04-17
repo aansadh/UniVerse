@@ -1,0 +1,35 @@
+######### AUTHENTICATION
+### post request for login
+
+@jwtCookie1 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk
+@jwtCookie2 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDM1MDIzMjksImV4cCI6MTc0MzU4ODcyOX0.LKyhkicJNl9e3DvW1lsC9lXqwpm-qxwJM9J9FpHToCc
+
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "email": "aan@gmail.com",
+    "password": "aa"
+}
+
+### post signup
+POST http://localhost:5000/auth/signup
+Content-Type: application/json
+
+{
+    "email": "aan@gmail.com",
+    "password": "aa",
+    "firstName": "aan",
+    "bio": "This is me!",
+    "age": 50
+}
+
+### post logout
+POST http://localhost:5000/auth/logout
+Content-Type: application/json
+Cookie: {{jwtCookie1}}
+
+### GET details
+GET http://localhost:5000/auth/me
+Content-Type: application/json
+Cookie: {{jwtCookie1}}

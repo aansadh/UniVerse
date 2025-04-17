@@ -1,0 +1,47 @@
+@jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ0NDQwNDEsImV4cCI6MTc0NDUzMDQ0MX0.tllNYM0STqh_jshNWTdQ-CfQ7nLrokbC5nDgKwJ7oDk
+
+POST http://localhost:5000/events
+Content-Type: application/json
+Cookie: {{jwtCookie}}
+
+{
+  "title": "CodeCraft 2025 testone",
+  "description": "A mega test hackathon event for all coding enthusiasts!",
+  "hostedBy": "CodeAANLabs",
+  "redirectLink": "https://codelabs.in/event/codecraft",
+  "time": "2025-05-10T10:30:00.000Z",
+  "mode": "offline",
+  "location": {
+    "houseNumber": "21A",
+    "street": "Tech Park Lane",
+    "locality": "Sector 62",
+    "landmark": "Opposite Tech Hub",
+    "city": "Noida",
+    "district": "Gautam Buddh Nagar",
+    "state": "Uttar Pradesh",
+    "pincode": "201301",
+    "coordinates": {
+      "lat": 28.6271,
+      "lng": 77.3774
+    }
+  },
+  "maxParticipants": 200,
+  "registeredParticipants": 50,
+  "status": "upcoming",
+  "tags": ["hackathon", "coding", "tech", "CodeLabs"]
+}
+
+### GET All events.
+GET http://localhost:5000/events
+Content-Type: application/json
+Cookie: {{jwtCookie}}
+
+### Delete An Event
+DELETE http://localhost:5000/events/67f79e86f9f682f18a569c9d
+Content-Type: application/json
+Cookie: {{jwtCookie}}
+
+### GET Events satisfying conditions
+GET http://localhost:5000/events/search?hostId=67ebbbd7af6e27c442840a81
+Cookie: {{jwtCookie}}
+Content-Type: application/json

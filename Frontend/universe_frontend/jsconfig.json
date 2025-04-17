@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+      "baseUrl": ".",
+      "paths": {
+        "@/*": ["src/*"]
+      }
+    },
+    "include": ["src", "src/Layouts/Layout.jsx", "src/Layouts/SettingsLayout.jsx"]
+  }
+  

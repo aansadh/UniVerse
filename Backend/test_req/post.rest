@@ -1,0 +1,36 @@
+@jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk
+
+POST http://localhost:5000/posts
+Content-Type: application/json
+Cookie: {{jwtCookie}}
+
+{
+    "description": "<script> alert('You are hacked!') </script>"
+}
+
+### To post : use this curl command in cmd.
+curl -X POST http://localhost:5000/posts ^
+   -H "Cookie: jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk"
+   -F "media=@F:/waste/CaiLin.webp" ^
+   -F "description=This one is for CaiLin!"
+# F - form-data; H - headers; replace cookie with token.
+
+### GET all posts
+GET http://localhost:5000/posts
+Cookie: {{jwtCookie}}
+
+### GET image from fileName
+GET http://localhost:5000/posts/image/1744047491921-67ebbbd7af6e27c442840a81-919680400.jpg
+Cookie: {{jwtCookie}}
+
+### POST request to like or unlike a post
+POST http://localhost:5000/posts/like-unlike/67f7c1617112707c6eee00d3
+Cookie: {{jwtCookie}}
+
+### delete post by id
+DELETE http://localhost:5000/posts/67f40d838be95649ada44e84
+Cookie: {{jwtCookie}}
+
+### Filter posts by uploader id
+GET http://localhost:5000/posts/search?uploader=67fbcb94595c8c7083eb4e31
+Cookie: {{jwtCookie}}
