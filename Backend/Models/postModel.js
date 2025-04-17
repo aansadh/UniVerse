@@ -28,6 +28,7 @@ const postSchema = new mongoose.Schema({
 },{strict: "throw", timestamps: true})
 
 postSchema.index({uploader: 1, updatedAt: -1})
+postSchema.index({updatedAt: -1})
 
 const postModel = mongoose.model("Post", postSchema)
 

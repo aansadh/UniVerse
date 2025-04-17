@@ -1,5 +1,6 @@
 @jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk
 
+### Post a post
 POST http://localhost:5000/posts
 Content-Type: application/json
 Cookie: {{jwtCookie}}

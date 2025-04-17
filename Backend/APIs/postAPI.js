@@ -36,11 +36,22 @@ posts.post('/', uploader('media'), expressAsyncHandler(async (req, res) => {
     res.send({message: "Successfully uploaded post!", payload: savedDoc})
 }))
 
+//// Get all posts.
 posts.get('/', expressAsyncHandler(async (req, res) => {
     const baseURL = `${process.env.baseURL}users/media/`
     const userId = req.user._id
+    let { lastUpdatedAt, limit }  = req.query
+    limit = parseInt(limit) || 2
+    lastUpdatedAt = lastUpdatedAt || Date.now()
 
     const allPosts = await postModel.aggregate([
+        {
+            $match: {
+                updatedAt: { $lt: new Date(lastUpdatedAt) }
+            }
+        },
+        { $sort: { updatedAt: -1 } },
+        { $limit: Number(limit) },
         { $unset: "__v" },
         {   
             $lookup: {
@@ -76,7 +87,7 @@ posts.get('/', expressAsyncHandler(async (req, res) => {
             }
         },
         { $unset: "likes" }
-    ])
+    ]).explain('executionStats')
 
     // let allPosts = await postModel.find()
     //                               .populate("uploader", "firstName lastName profilePic")
@@ -165,20 +176,20 @@ posts.post('/like-unlike/:id', expressAsyncHandler(async (req, res) => {
     const userId = req.user._id
     const postId = req.params.id
 
-    const validId = await postModel.exists({_id: postId})
-    if(!validId)
-        return res.status(400).send({message: "Invalid PostId!"})
+    let isLiked = await postModel.findOne({_id: postId, likes: userId})
+                                 .lean()
 
-    let postDoc = await postModel.findOne({_id: postId, likes: userId}).lean()
-    if(!postDoc) {
-        const addRes = await postModel.findByIdAndUpdate(postId, {$addToSet: {likes: userId}}, {new: true})
-        return res.send({message: "Liked successfully!", likesCount: addRes?.likes.length})
-    } else {
-        const removeRes = await postModel.findByIdAndUpdate(postId, {$pull: {likes: userId}}, {new: true})
-        return res.send({message: "Unliked successfully!", likesCount: removeRes?.likes.length})
-    }
+    const updatedDoc = isLiked
+    ?   { $pull: { likes: userId } } 
+    :   { $addToSet: { likes: userId } }
 
-    // it is advised to use aggregation here. use $cond (learn that later)
+    const finalDoc = await postModel.findByIdAndUpdate(postId, updatedDoc, { new: true})
+                                    .lean()
+
+    if(!finalDoc)
+        return res.status(400).send({message: "Invalid post Id! Post not found!"})
+
+    res.send({ message: ( isLiked ? "Unliked successfully!" : "Liked successfully!" ), likesCount: finalDoc?.likes?.length || 0 })
 }))
 
 posts.delete('/:id', expressAsyncHandler(async (req, res) => {
@@ -187,7 +198,7 @@ posts.delete('/:id', expressAsyncHandler(async (req, res) => {
 
     const postDetails = await postModel.findById(postId).lean()
     if(!postDetails.uploader.equals(userId)) 
-        return res.status(403).send({message: "You are not allowed to perform delete posts of other users!"})
+        return res.status(403).send({message: "You are not allowed to delete posts of other users!"})
 
     const deleteRes = await postModel.findByIdAndDelete(postId)
     if(!deleteRes)
