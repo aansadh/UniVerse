@@ -1,4 +1,4 @@
-@jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk
+@jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDUxMzA0MjMsImV4cCI6MTc0NTIxNjgyM30.pWCiWa_CMMTH26p_m_o3PK-jZQdiwzJdTxS-qqqE0Tk
 
 ### Post a post
 POST http://localhost:5000/posts
@@ -6,7 +6,7 @@ Content-Type: application/json
 Cookie: {{jwtCookie}}
 
 {
-    "description": "<script> alert('You are hacked!') </script>"
+    "description": "<script> alert('Just Created it!') </script>"
 }
 
 ### To post : use this curl command in cmd.
@@ -17,7 +17,7 @@ curl -X POST http://localhost:5000/posts ^
 # F - form-data; H - headers; replace cookie with token.
 
 ### GET all posts
-GET http://localhost:5000/posts
+GET http://localhost:5000/posts?limit=5
 Cookie: {{jwtCookie}}
 
 ### GET image from fileName
@@ -25,11 +25,11 @@ GET http://localhost:5000/posts/image/1744047491921-67ebbbd7af6e27c442840a81-919
 Cookie: {{jwtCookie}}
 
 ### POST request to like or unlike a post
-POST http://localhost:5000/posts/like-unlike/67f7c1617112707c6eee00d3
+POST http://localhost:5000/posts/like-unlike/68051068321a04e723e48971
 Cookie: {{jwtCookie}}
 
 ### delete post by id
-DELETE http://localhost:5000/posts/67f40d838be95649ada44e84
+DELETE http://localhost:5000/posts/680114a176c99b289db71236
 Cookie: {{jwtCookie}}
 
 ### Filter posts by uploader id

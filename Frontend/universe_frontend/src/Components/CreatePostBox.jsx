@@ -32,7 +32,7 @@ export default function CreatePostBox({ onPostCreated }) {
       return
     }
 
-    console.log("This is the media!", media)
+    // console.log("This is the media!", media)
 
     const formData = new FormData()
     if (description) formData.append("description", description)
@@ -41,12 +41,11 @@ export default function CreatePostBox({ onPostCreated }) {
     console.log("Final form data before submitting: ", formData)
     for (let pair of formData.entries()) {
         console.log(`${pair[0]}:`, pair[1])
-      }
+    }
       
 
     setLoading(true)
     try {
-      console.log("Trying to submit this data: ", formData)
       const res = await axios.post("/posts", formData)
       console.log("Got this responsne: ", res)
       toast.success("Post created successfully!")

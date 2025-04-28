@@ -12,7 +12,7 @@ friendship.post('/request', expressAsyncHandler(async (req, res) => {
     const {recipientId} = req.body
     const requesterId = req.user._id
 
-    if(!requesterId || !recipientId || requesterId === recipientId)
+    if(!requesterId || !recipientId || requesterId.equals(recipientId))
         return res.status(400).send({message: "RecipientId is required! (Verify if requesterId === recipientId)"})
 
     // check for whether the relation already exists to be implemented

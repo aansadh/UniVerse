@@ -67,7 +67,7 @@ const locationSchema = new mongoose.Schema({
         min: -180,
         max: 180
       }
-    }
+    },
   }, {strict: "throw", _id: false});  // setting _id false because it is embedded schema.
   
 
@@ -132,12 +132,12 @@ const locationSchema = new mongoose.Schema({
       type: Number,
       default: 0,
       min: [0, 'Can only have minimum of 0 participants.'],
-      validate: {
-        validator: function (value) {
-          return value <= this.maxParticipants;
-        },
-        message: 'Registered participants cannot exceed max limit!',
-      },
+      // validate: {
+      //   validator: function (value) {
+      //     return value <= this.maxParticipants;
+      //   },
+      //   message: 'Registered participants cannot exceed max limit!',
+      // },
     },
     status: {
       type: String,
@@ -146,13 +146,17 @@ const locationSchema = new mongoose.Schema({
     },
     tags: {
       type: [String],
-      validate: {
-        validator: function (arr) {
-          return arr.length <= 10;
-        },
-        message: 'Maximum of 10 tags allowed',
-      },
+      // validate: {
+      //   validator: function (arr) {
+      //     return arr.length <= 10;
+      //   },
+      //   message: 'Maximum of 10 tags allowed',
+      // },
     },
+    media: {
+      type: String,
+      required: true
+    }
   }, {
     strict: 'throw',
     timestamps: true,

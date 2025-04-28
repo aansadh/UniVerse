@@ -79,7 +79,7 @@ export default function Profile() {
 
         {/* User's Posts */}
         <div className="space-y-4">
-          {posts.length > 0 ? (
+          {posts?.length > 0 ? (
             posts.map((post) => <PostCard key={post._id} post={post} onPostDeleted={(deletedId) => 
               setPosts(prev => prev.filter((p) => p._id !== deletedId))} />)
           ) : (

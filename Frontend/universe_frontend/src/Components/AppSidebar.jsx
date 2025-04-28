@@ -113,17 +113,20 @@ export function AppSidebar() {
         <SidebarSeparator />
       </aside>
 
-      <SidebarContent>
+      <SidebarContent className='py-2'>
         <SidebarMenu>
           {items.map((item, itemIdx) => (
-            <SidebarMenuItem key={itemIdx}>
+            <SidebarMenuItem key={itemIdx} className="py-1">
               <SidebarMenuButton
                 asChild
-                className="flex items-center gap-3 w-full px-4 py-2"
+                className="flex items-center gap-3 w-full px-4 py-2 text-base"
               >
-                <a href={item.url} className="flex items-center gap-3 w-full">
-                  <item.icon />
-                  <span>{item.title}</span>
+                <a
+                  href={item.url}
+                  className="flex items-center gap-3 w-full py-2 text-base"
+                >
+                    <item.icon />
+                    <span>{item.title}</span>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>

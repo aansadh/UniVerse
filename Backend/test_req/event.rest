@@ -1,4 +1,4 @@
-@jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ0NDQwNDEsImV4cCI6MTc0NDUzMDQ0MX0.tllNYM0STqh_jshNWTdQ-CfQ7nLrokbC5nDgKwJ7oDk
+@jwtCookie = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaWxpbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ZiY2I5NDU5NWM4YzcwODNlYjRlMzEiLCJpYXQiOjE3NDU4NTU4NDYsImV4cCI6MTc0NTk0MjI0Nn0.h6YSvoTZ97VUvVZa8qlQ-M054-AEiVH6VZq8gvJvsBQ
 
 POST http://localhost:5000/events
 Content-Type: application/json
@@ -30,6 +30,22 @@ Cookie: {{jwtCookie}}
   "status": "upcoming",
   "tags": ["hackathon", "coding", "tech", "CodeLabs"]
 }
+
+curl -X POST http://localhost:5000/events \
+  -H "Cookie: jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaWxpbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ZiY2I5NDU5NWM4YzcwODNlYjRlMzEiLCJpYXQiOjE3NDU4NTU4NDYsImV4cCI6MTc0NTk0MjI0Nn0.h6YSvoTZ97VUvVZa8qlQ-M054-AEiVH6VZq8gvJvsBQ" \
+  -F "title=Sample Event100000" \
+  -F "description=This is a sample event" \
+  -F "hostId=67fbcb94595c8c7083eb4e31" \
+  -F "hostedBy=Organizer Name" \
+  -F "redirectLink=https://example.com" \
+  -F "time=2025-05-01T10:00:00.000Z" \
+  -F "mode=offline" \
+  -F "location[locality]=Sample Locality" \
+  -F "location[city]=Sample City" \
+  -F "location[state]=Delhi" \
+  -F "location[pincode]=110001" \
+  -F "media=@F:/waste/Cailin.webp"
+
 
 ### GET All events.
 GET http://localhost:5000/events
