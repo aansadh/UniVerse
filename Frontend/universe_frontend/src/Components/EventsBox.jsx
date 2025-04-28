@@ -8,7 +8,7 @@ import {
   CardTitle,
   CardFooter,
 } from "@/components/ui/card";
-import axios from "axios";
+import axios from "@/lib/axios";
 
 export default function EventsPage() {
   const [events, setEvents] = useState([]);
@@ -16,7 +16,7 @@ export default function EventsPage() {
   async function fetchEvents() {
     try {
       const response = await axios.get("/events");
-      // console.log(response);
+      console.log('fetched events: ', response);
       setEvents(response.data.payload);
       console.log(response);
     } catch (err) {
@@ -44,7 +44,7 @@ export default function EventsPage() {
       </section>
 
       <div className="grid sm:grid-cols-2 gap-4">
-        {events.map((event) => (
+        {Array.isArray(events) && events.map((event) => (
           <Card
             key={event.id}
             className="hover:shadow-lg transition flex flex-col overflow-hidden"

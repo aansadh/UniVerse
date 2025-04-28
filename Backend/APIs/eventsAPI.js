@@ -22,7 +22,6 @@ event.post(
       "hostedBy",
       "redirectLink",
       "time",
-      "location",
       "mode",
       "maxParticipants",
       "registeredParticipants",
@@ -31,6 +30,8 @@ event.post(
     ];
     const postFields = req.body;
     const eventDetails = {};
+    const location = JSON.parse(req.body.location)
+    location && (eventDetails.location = location)
     validFields.forEach((key) => {
       eventDetails[key] = postFields[key];
     //   console.log("From forEach event post: ", postFields[key]);
@@ -94,7 +95,6 @@ event.get(
           media: { $concat: [baseURL_image, "$media"] },
         },
       },
-      { $unset: "likes" },
     ]);
 
     res.send({ message: "Fetched all events.", payload: allEvents });

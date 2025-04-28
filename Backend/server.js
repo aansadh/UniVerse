@@ -7,7 +7,7 @@ require('dotenv').config()
 
 const authAPI = require('./APIs/authAPI')
 const userAPI = require('./APIs/userAPI')
-const eventAPI = require('./APIs/eventsAPI')
+const eventsAPI = require('./APIs/eventsAPI')
 const friendsAPI = require('./APIs/friendsAPI')
 const postAPI = require('./APIs/postAPI')
 const PORT = process.env.PORT || 3000
@@ -26,7 +26,7 @@ app.use('/auth', authAPI)
 app.use('/users', userAPI)
 app.use('/friends', friendsAPI)
 app.use('/posts', postAPI)
-app.use('/events', eventAPI)
+app.use('/events', eventsAPI)
 
 mongoose.connect(process.env.dbURL)
 .then(()=>{
