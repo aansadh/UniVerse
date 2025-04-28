@@ -9,6 +9,8 @@ import Profile from '@/pages/Profile'
 import SettingsLayout from '@/Layouts/SettingsLayout'
 import SettingsProfile from "@/pages/SettingsProfile";
 import SettingsDeleteAccount from '@/pages/SettingsDeleteAccount'
+import CreateEventForm from "./Components/CreateEventForm";
+import EventsPage from '@/Components/EventsBox'
 
 function PageNotFoundRedirect() {
   const { user } = useAuth()
@@ -52,6 +54,8 @@ export default function App() {
             <Route path="/" element={ <Home />} />
             <Route path="/profile" element= { <Profile /> } />
             <Route path="/profile/:id" element= { <Profile /> } />
+            <Route path='/events' element={<EventsPage />} />
+            <Route path='/events/create' element = {<CreateEventForm />} />
         </Route>
         
         <Route element = {<ProtectedRoute>
