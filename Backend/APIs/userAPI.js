@@ -70,9 +70,8 @@ users.get('/media/:fileName', expressAsyncHandler(async (req, res) => {
     fs.access(filePath, fs.constants.F_OK, (error) => {
         if(error)
             return res.status(404).send({message: "Some error has occurred while retrieving the file.", error: error})
-    })
-
-    res.sendFile(filePath) 
+        res.sendFile(filePath)
+    }) 
 }))
 
 users.delete('/delete', expressAsyncHandler(async (req, res) => {

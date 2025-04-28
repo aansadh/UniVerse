@@ -1,42 +1,73 @@
-import { useEffect, useState } from "react"
-import PostCard from "@/components/PostCard"
-import axios from "@/lib/axios"
+import { useEffect, useState, useRef } from "react";
+import PostCard from "@/components/PostCard";
+import axios from "@/lib/axios";
 
 export default function Feed(props) {
-  const { posts, setPosts } = props
-  const [ loading, setLoading ] = useState(false)
-
-  // useEffect(() => {
-  //   console.log("Updated posts in Feed:", posts)
-  // }, [posts])  
+  const { posts, setPosts } = props;
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [cursor, setCursor] = useState({
+    lastUpdatedAt: null,
+    lastId: null,
+  });
+  const ref = useRef(null);
+  const limit = 3;
 
   const fetchPosts = async () => {
-    setLoading(true)
+    if (loading || !hasMore) return;
+    setLoading(true);
     try {
-      const res = await axios.get("/posts")
-      console.log("The resposne from fetchPosts: ", res)
-      setPosts(res.data.posts || []) 
+      const res = await axios.get(
+        `/posts?limit=${limit}&lastUpdatedAt=${
+          cursor.lastUpdatedAt ? cursor.lastUpdatedAt : ""
+        }&lastId=${cursor.lastId ? cursor.lastId : ""}`
+      );
+      setPosts((prev) => [...prev, ...res.data.posts]);
+      setHasMore(res.data.pagination.hasMore);
+      setCursor({
+        lastUpdatedAt: res.data.pagination.nextCursor.lastUpdatedAt,
+        lastId: res.data.pagination.nextCursor.lastId,
+      });
     } catch (err) {
-      console.error("Failed to fetch posts", err)
+      console.error("Failed to fetch posts", err);
     } finally {
-      setLoading(false)
-      console.log("All posts from finally: ", posts)
+      setLoading(false);
     }
-  }
+  };
 
   useEffect(() => {
-    fetchPosts()
-  }, [])
+    if (!ref.current) return;
+    const observer = new IntersectionObserver((entries) => {
+      const observedEntry = entries[0];
+      if (observedEntry.isIntersecting && !loading && hasMore) {
+        fetchPosts();
+      }
+    });
 
-  if (loading) 
-    return <div>Loading feed...</div>
+    if (ref.current) observer.observe(ref.current);
+
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+      observer.disconnect();
+    };
+  }, [cursor]);
+  // You might think that using ref.current is a good way! But, no! It is not reactive state
+  // unlike useState and react doesn't keep track of it hence not executed when it changes.
 
   return (
     <div className="space-y-4">
+      {console.log("allPosts: ", posts)}
       {posts.map((post) => (
-        <PostCard key={post._id} post={post} onPostDeleted={(deletedId) => 
-          setPosts(prev => prev.filter((p) => p._id !== deletedId))} />
+        <PostCard
+          key={post._id}
+          post={post}
+          onPostDeleted={(deletedId) =>
+            setPosts((prev) => prev.filter((p) => p._id !== deletedId))
+          }
+        />
       ))}
+      {/* This initialises observer.current with this div */}
+      <div ref={ref}>{loading && <h1>...Loading Posts</h1>}</div>
     </div>
-  )
+  );
 }
