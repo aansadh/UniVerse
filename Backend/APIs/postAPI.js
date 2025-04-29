@@ -94,7 +94,7 @@ posts.get(
           .map((key) => {
             if (!mongoose.Types.ObjectId.isValid(reqFields[key]))
               return res.status(400).send({ message: "Invalid Uploader Id" });
-            if (key === "uploader") {
+            if (key === "uploader" && reqFields[key]) {
               return [key, new mongoose.Types.ObjectId(`${reqFields[key]}`)];
             }
             return [key, reqFields[key]];

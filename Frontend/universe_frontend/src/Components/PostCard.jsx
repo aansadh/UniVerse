@@ -13,7 +13,7 @@ export default function PostCard({ post, onPostDeleted }) {
   const { _id, uploader, description, media, createdAt } = post
   const { user } = useAuth()
 
-  const [liked, setLiked] = useState(post.liked)
+  const [liked, setLiked] = useState(post.isLiked)
   const [likesCount, setLikesCount] = useState(post.likesCount)
   const [loading, setLoading] = useState(false)
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false)
@@ -24,17 +24,13 @@ export default function PostCard({ post, onPostDeleted }) {
   })
 
   const toggleLike = async () => {
-    if (loading) return
-    setLoading(true)
     try {
       const res = await axios.post(`/posts/like-unlike/${_id}`)
       setLikesCount(res.data.likesCount)
       setLiked(prev => !prev)
     } catch (err) {
       console.error("Failed to like/unlike post:", err)
-    } finally {
-      setLoading(false)
-    }
+    } 
   }
 
   const handleDelete = async () => {

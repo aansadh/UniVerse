@@ -3,7 +3,7 @@ import PostCard from "@/components/PostCard";
 import axios from "@/lib/axios";
 
 export default function Feed(props) {
-  const { posts, setPosts } = props;
+  const { posts, setPosts, uploader } = props;
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState({
@@ -11,7 +11,7 @@ export default function Feed(props) {
     lastId: null,
   });
   const ref = useRef(null);
-  const limit = 3;
+  const limit = 5;
 
   const fetchPosts = async () => {
     if (loading || !hasMore) return;
@@ -20,7 +20,7 @@ export default function Feed(props) {
       const res = await axios.get(
         `/posts?limit=${limit}&lastUpdatedAt=${
           cursor.lastUpdatedAt ? cursor.lastUpdatedAt : ""
-        }&lastId=${cursor.lastId ? cursor.lastId : ""}`
+        }&lastId=${cursor.lastId ? cursor.lastId : ""}&uploader=${uploader}`
       );
       setPosts((prev) => [...prev, ...res.data.posts]);
       setHasMore(res.data.pagination.hasMore);
@@ -57,7 +57,7 @@ export default function Feed(props) {
   return (
     <div className="space-y-4">
       {console.log("allPosts: ", posts)}
-      {posts.map((post) => (
+      {Array.isArray(posts) && posts?.map((post) => (
         <PostCard
           key={post._id}
           post={post}

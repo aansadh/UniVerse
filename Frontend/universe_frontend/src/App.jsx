@@ -56,14 +56,13 @@ export default function App() {
             <Route path="/profile/:id" element= { <Profile /> } />
             <Route path="/events" element={ <EventBox /> } />
             <Route path="/events/create" element={ <CreateEventForm /> } />
-
         </Route>
+
         
         <Route element = {<ProtectedRoute>
                               <SettingsLayout />
                           </ProtectedRoute>}>
           <Route path='/settings' element={ <SettingsProfile />} />
-          
           <Route path='/settings/deleteAccount' element= { <SettingsDeleteAccount /> } />
         </Route>
         <Route path='*' element={ <PageNotFoundRedirect /> } />

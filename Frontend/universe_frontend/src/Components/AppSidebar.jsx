@@ -77,30 +77,32 @@ function MoreOptions() {
   );
 }
 
-const items = [
-  {
-    title: "Home",
-    url: "/",
-    icon: Home,
-  },
-  {
-    title: "Search",
-    url: "#",
-    icon: Search,
-  },
-  {
-    title: "Events",
-    url: "#",
-    icon: CalendarHeart,
-  },
-  {
-    title: "Profile",
-    url: "/profile",
-    icon: UserPen,
-  },
-];
+export function AppSidebar(props) {
+  const {openSearch, setOpenSearch} = props
+  const navigate = useNavigate();
+  const items = [
+    {
+      title: "Home",
+      icon: Home,
+      onclick: () => navigate('/')
+    },
+    // {
+    //   title: "Search",
+    //   icon: Search,
+    //   onclick: () => {console.log("clicked on search button:: prevState: ", openSearch); setOpenSearch(prev => !prev); console.log("Updated setOpenSearch: ", openSearch)}
+    // },
+    {
+      title: "Events",
+      icon: CalendarHeart,
+      onclick: () => navigate('/events')
+    },
+    {
+      title: "Profile",
+      icon: UserPen,
+      onclick: () => navigate('/profile')
+    },
+  ];
 
-export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="text-2xl font-bold tracking-tight px-4 py-3">
@@ -113,17 +115,22 @@ export function AppSidebar() {
         <SidebarSeparator />
       </aside>
 
-      <SidebarContent>
+      <SidebarContent className='py-2'>
         <SidebarMenu>
           {items.map((item, itemIdx) => (
-            <SidebarMenuItem key={itemIdx}>
+            <SidebarMenuItem key={itemIdx} className="py-1">
               <SidebarMenuButton
                 asChild
-                className="flex items-center gap-3 w-full px-4 py-2"
+                className="flex items-center gap-3 w-full px-4 py-2 text-base cursor-pointer"
               >
-                <a href={item.url} className="flex items-center gap-3 w-full">
-                  <item.icon />
-                  <span>{item.title}</span>
+                <a
+                  role="button"
+                  tabIndex={0}
+                  onClick={item.onclick}
+                  className="flex items-center gap-3 w-full py-2 text-base"
+                >
+                    <item.icon />
+                    <span>{item.title}</span>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
