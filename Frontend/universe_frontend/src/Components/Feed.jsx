@@ -3,7 +3,7 @@ import PostCard from "@/components/PostCard";
 import axios from "@/lib/axios";
 
 export default function Feed(props) {
-  const { posts, setPosts, uploader } = props;
+  const { posts, setPosts } = props;
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [cursor, setCursor] = useState({
@@ -20,7 +20,7 @@ export default function Feed(props) {
       const res = await axios.get(
         `/posts?limit=${limit}&lastUpdatedAt=${
           cursor.lastUpdatedAt ? cursor.lastUpdatedAt : ""
-        }&lastId=${cursor.lastId ? cursor.lastId : ""}&uploader=${uploader}`
+        }&lastId=${cursor.lastId ? cursor.lastId : ""}`
       );
       setPosts((prev) => [...prev, ...res.data.posts]);
       setHasMore(res.data.pagination.hasMore);
@@ -67,7 +67,16 @@ export default function Feed(props) {
         />
       ))}
       {/* This initialises observer.current with this div */}
-      <div ref={ref}>{loading && <h1>...Loading Posts</h1>}</div>
+      <div ref={ref} className="text-center py-4">
+            {loading && (
+              <p className="text-muted-foreground text-sm">
+                Loading more posts...
+              </p>
+            )}
+            {!hasMore && posts.length > 0 && (
+              <p className="text-muted-foreground text-xs">No more posts.</p>
+            )}
+          </div>
     </div>
   );
 }

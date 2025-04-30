@@ -1,4 +1,4 @@
-@jwtCookie1 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDQ4NzIzMTAsImV4cCI6MTc0NDk1ODcxMH0.dK16p2TIC8Vzcv4yZTgq-7_pKfIiUPrb37zx0F_UDsk
+@jwtCookie1 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNhaWxpbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ZiY2I5NDU5NWM4YzcwODNlYjRlMzEiLCJpYXQiOjE3NDU5NDU5NTYsImV4cCI6MTc0NjAzMjM1Nn0.KUyllfX4B8LOW2j7sN7lZmGUO0vu1ijQ871phQpxjsQ
 @jwtCookie2 = jwtToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFhbkBnbWFpbC5jb20iLCJfaWQiOiI2N2ViYmJkN2FmNmUyN2M0NDI4NDBhODEiLCJpYXQiOjE3NDM1MDIzMjksImV4cCI6MTc0MzU4ODcyOX0.LKyhkicJNl9e3DvW1lsC9lXqwpm-qxwJM9J9FpHToCc
 
 ######### USERS
@@ -31,6 +31,6 @@ Content-Type: application/json
 Cookie: {{ jwtCookie1 }}
 
 ### GET users with query.
-GET http://localhost:5000/users/search?firstName=karthik 
+GET http://localhost:5000/users/search?firstName=aan&lastName=
 Content-Type: application/json    
 Cookie: {{ jwtCookie1 }}

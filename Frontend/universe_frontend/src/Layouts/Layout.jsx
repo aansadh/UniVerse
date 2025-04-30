@@ -13,10 +13,10 @@ export default function Layout() {
       <div className="w-full flex min-h-screen">
         <div className="flex-none">
           <AppSidebar openSearch={openSearch} setOpenSearch={setOpenSearch} />
-          {/* <SearchUsersSheet
+          <SearchUsersSheet
             openSearch={openSearch}
             setOpenSearch={setOpenSearch}
-          /> */}
+          />
         </div>
         <div className="flex-1 px-4 py-6">
           <SidebarTrigger className="mb-4 z-1000 fixed" />

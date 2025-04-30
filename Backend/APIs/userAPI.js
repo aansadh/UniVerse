@@ -95,21 +95,17 @@ users.get(
     try {
       fs.access(filePath, fs.constants.F_OK, (error) => {
         if (error)
-          return res
-            .status(404)
-            .send({
-              message: "Some error has occurred while retrieving the file.",
-              error: error,
-            });
+          return res.status(404).send({
+            message: "Some error has occurred while retrieving the file.",
+            error: error,
+          });
       });
     } catch (error) {
-        console.log("Some error has occurred! ERROR: ", error)
-        return res
-            .status(404)
-            .send({
-              message: "Some error has occurred while retrieving the file.",
-              error: error,
-            });
+      console.log("Some error has occurred! ERROR: ", error);
+      return res.status(404).send({
+        message: "Some error has occurred while retrieving the file.",
+        error: error,
+      });
     }
 
     res.sendFile(filePath);
@@ -160,13 +156,21 @@ users.get(
         )
         .map((key) => [key, requestedFields[key]])
     );
+    console.log("Requested Fields: ", requestedFields);
     // The operation and security here might be improved by deciding projections.
-    const reqUsers = await UserModel.find(requestedFields, {
+    let reqUsers = await UserModel.find(requestedFields, {
       _id: true,
       firstName: true,
       lastName: true,
       profilePic: true,
-    });
+    }).lean();
+    console.log("Final Results: ", reqUsers);
+    const baseURL = process.env.baseURL + "users/media/";
+    reqUsers = reqUsers?.map((user) => ({
+      ...user,
+      profilePic: baseURL + user.profilePic,
+    }));
+    console.log("reqUsers: ", reqUsers);
     if (!reqUsers.length)
       return res.status(404).send({ message: "No users found!" });
     res.send({ message: "Users found!", payload: reqUsers });

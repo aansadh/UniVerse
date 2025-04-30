@@ -84,22 +84,22 @@ export function AppSidebar(props) {
     {
       title: "Home",
       icon: Home,
-      onclick: () => navigate('/')
+      onClick: () => navigate('/')
     },
-    // {
-    //   title: "Search",
-    //   icon: Search,
-    //   onclick: () => {console.log("clicked on search button:: prevState: ", openSearch); setOpenSearch(prev => !prev); console.log("Updated setOpenSearch: ", openSearch)}
-    // },
+    {
+      title: "Search",
+      icon: Search,
+      onClick: () => setOpenSearch(prev => !prev)
+    },
     {
       title: "Events",
       icon: CalendarHeart,
-      onclick: () => navigate('/events')
+      onClick: () => navigate('/events')
     },
     {
       title: "Profile",
       icon: UserPen,
-      onclick: () => navigate('/profile')
+      onClick: () => navigate('/profile')
     },
   ];
 
@@ -126,7 +126,7 @@ export function AppSidebar(props) {
                 <a
                   role="button"
                   tabIndex={0}
-                  onClick={item.onclick}
+                  onClick={item.onClick}
                   className="flex items-center gap-3 w-full py-2 text-base"
                 >
                     <item.icon />

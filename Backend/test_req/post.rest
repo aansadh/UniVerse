@@ -33,5 +33,5 @@ DELETE http://localhost:5000/posts/680114a176c99b289db71236
 Cookie: {{jwtCookie}}
 
 ### Filter posts by uploader id
-GET http://localhost:5000/posts/search?uploader=67fbcb94595c8c7083eb4e31
+GET http://localhost:5000/posts/search?uploader=67fbcb94595c8c7083eb4e31&limit=4&lastUpdatedAt=&lastId=
 Cookie: {{jwtCookie}}
