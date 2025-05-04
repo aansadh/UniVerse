@@ -12,7 +12,7 @@ Content-Type: application/json
 Cookie: {{jwtCookie1}}
 
 ### GET profile by ID
-GET http://localhost:5000/users/profile/:id
+GET http://localhost:5000/users/profile/67ebbbd7af6e27c442840a81
 Content-Type: application/json
 Cookie: {{jwtCookie1}}
 
@@ -22,7 +22,7 @@ Content-Type: application/json
 Cookie: {{jwtCookie1}}
 
 {
-    "lastName": "Medusa"
+    "bio": "Medusa"
 }
 
 ### DELETE user profile                 

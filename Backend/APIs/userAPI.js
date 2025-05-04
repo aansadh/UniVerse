@@ -92,23 +92,15 @@ users.get(
     const fileName = req.params.fileName;
     const filePath = path.join(__dirname, "..", "uploads", fileName);
 
-    try {
-      fs.access(filePath, fs.constants.F_OK, (error) => {
-        if (error)
-          return res.status(404).send({
-            message: "Some error has occurred while retrieving the file.",
-            error: error,
-          });
-      });
-    } catch (error) {
-      console.log("Some error has occurred! ERROR: ", error);
-      return res.status(404).send({
-        message: "Some error has occurred while retrieving the file.",
-        error: error,
-      });
-    }
+    fs.access(filePath, fs.constants.F_OK, (error) => {
+      if (error)
+        return res.status(404).send({
+          message: "Some error has occurred while retrieving the file.",
+          error: error,
+        });
 
-    res.sendFile(filePath);
+      return res.sendFile(filePath);
+    });
   })
 );
 
@@ -119,7 +111,7 @@ users.delete(
     const deleteRes = await UserModel.findByIdAndDelete(userID);
     if (!deleteRes) return res.status(404).send({ message: "User not found!" });
 
-    // this part needs to be handled with care.
+    // this part needs to be handled with care. - This chunk of code is incomplete.
 
     // deleting all the posts by this user.
     const deletePostRes = await postModel.deleteMany({

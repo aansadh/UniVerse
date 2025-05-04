@@ -18,7 +18,6 @@ export default function EventsPage() {
       const response = await axios.get("http://localhost:5000/events", {
         withCredentials: true,
       });
-      // console.log(response);
       setEvents(response.data.payload);
       console.log(response);
     } catch (err) {

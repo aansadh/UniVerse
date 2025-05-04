@@ -78,35 +78,35 @@ function MoreOptions() {
 }
 
 export function AppSidebar(props) {
-  const {openSearch, setOpenSearch} = props
+  const { openSearch, setOpenSearch } = props;
   const navigate = useNavigate();
   const items = [
     {
       title: "Home",
       icon: Home,
-      onClick: () => navigate('/')
+      onClick: () => navigate("/"),
     },
     {
       title: "Search",
       icon: Search,
-      onClick: () => setOpenSearch(prev => !prev)
+      onClick: () => setOpenSearch((prev) => !prev),
     },
     {
       title: "Events",
       icon: CalendarHeart,
-      onClick: () => navigate('/events')
+      onClick: () => navigate("/events"),
     },
     {
       title: "Profile",
       icon: UserPen,
-      onClick: () => navigate('/profile')
+      onClick: () => navigate("/profile"),
     },
   ];
 
   return (
     <Sidebar collapsible="icon">
-      <SidebarHeader className="text-2xl font-bold tracking-tight px-4 py-3">
-        <span className="bg-gradient-to-r from-slate-600 to-slate-300 dark:from-slate-200 dark:to-slate-500 bg-clip-text text-transparent">
+      <SidebarHeader className="text-3xl font-bold tracking-tight px-4 py-3">
+        <span className="text-transparent bg-clip-text  bg-linear-to-r from-pink-500 via-red-500 to-orange-500 ">
           UniVerse
         </span>
       </SidebarHeader>
@@ -115,7 +115,7 @@ export function AppSidebar(props) {
         <SidebarSeparator />
       </aside>
 
-      <SidebarContent className='py-2'>
+      <SidebarContent className="py-2">
         <SidebarMenu>
           {items.map((item, itemIdx) => (
             <SidebarMenuItem key={itemIdx} className="py-1">
@@ -129,8 +129,8 @@ export function AppSidebar(props) {
                   onClick={item.onClick}
                   className="flex items-center gap-3 w-full py-2 text-base"
                 >
-                    <item.icon />
-                    <span>{item.title}</span>
+                  <item.icon />
+                  <span>{item.title}</span>
                 </a>
               </SidebarMenuButton>
             </SidebarMenuItem>
